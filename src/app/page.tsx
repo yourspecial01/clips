@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 export default function LandingPage1() {
   // Set initial seconds to 15
@@ -93,12 +92,12 @@ export default function LandingPage1() {
           <br />
           With its sleek, flat rear design, aviation aluminum frame, and RGB lighting
           customization, the RedMagic 9 Pro+ is not just a gaming powerhouse but also
-          a stylish device. Whether you're gaming, streaming, or capturing stunning
+          a stylish device. Whether you&apos;re gaming, streaming, or capturing stunning
           photos, this phone is built to excel in every aspect. Would you like to
           explore its pricing or availability?
         </p>
         <p className="mb-4">
-          The iPhone 16 Pro Max is Apple's latest flagship, designed to deliver
+          The iPhone 16 Pro Max is Apple&apos;s latest flagship, designed to deliver
           top-tier performance, premium aesthetics, and cutting-edge technology. It
           features a 6.9-inch Super Retina XDR OLED display with ProMotion technology,
           offering adaptive refresh rates up to 120Hz for ultra-smooth visuals. The A18
@@ -141,7 +140,7 @@ export default function LandingPage1() {
           <br />
           With its advanced camera capabilities, powerful chipset, and premium build,
           the iPhone 16 Pro Max is a top-tier device for professionals, gamers, and
-          tech enthusiasts. Whether you're capturing stunning photos, gaming at high
+          tech enthusiasts. Whether you&apos;re capturing stunning photos, gaming at high
           frame rates, or enjoying immersive media, this device excels in every
           aspect. You can explore more details here. Would you like to check its
           availability or compare it with other flagship smartphones?
@@ -166,7 +165,7 @@ export default function LandingPage1() {
           dust and water resistance, making it a durable choice.
           <br />
           With One UI 6.1.1 based on Android 14, the Galaxy S24 Ultra offers a seamless
-          user experience with seven years of software updates. Whether you're gaming,
+          user experience with seven years of software updates. Whether you&apos;re gaming,
           capturing stunning photos, or multitasking, this device excels in every
           aspect. Would you like to explore its pricing or compare it with other
           flagship smartphones?
@@ -195,12 +194,12 @@ export default function LandingPage1() {
           power with rapid recharging.
           <br />
           Running on OxygenOS 14 based on Android 14, the OnePlus 12 offers a clean and
-          feature-rich user experience. Whether you're gaming, capturing stunning
+          feature-rich user experience. Whether you&apos;re gaming, capturing stunning
           photos, or multitasking, this device excels in every aspect. Would you like
           to explore its pricing or compare it with other flagship smartphones?
         </p>
         <h2 className="text-xl font-semibold mt-8 mb-2">
-          Choosing the Best Gaming Phone & Trends
+          Choosing the Best Gaming Phone &amp; Trends
         </h2>
         <p className="mb-4">
           When selecting a gaming phone in 2025, prioritize the latest processors
@@ -215,7 +214,7 @@ export default function LandingPage1() {
           mobile gaming.
         </p>
         <h2 className="text-xl font-semibold mt-8 mb-2">
-          Tips & FAQs for Mobile Gamers
+          Tips &amp; FAQs for Mobile Gamers
         </h2>
         <p className="mb-4">
           To get the most out of your gaming phone, keep your device updated, use a
@@ -226,7 +225,7 @@ export default function LandingPage1() {
           excellent for daily use, offering top-tier cameras and build quality. With
           proper care, they last as long as any flagship device, though heavy gaming
           may impact battery health over time. Many support a range of accessories,
-          and if you’re a serious gamer, investing in a gaming phone in 2025 is well
+          and if you&apos;re a serious gamer, investing in a gaming phone in 2025 is well
           worth it.
         </p>
         <p className="mb-4">
@@ -235,6 +234,7 @@ export default function LandingPage1() {
           features. Choose the one that fits your needs and budget for the ultimate
           gaming experience!
         </p>
+        <p>It&apos;s a great phone!</p>
         <div style={{ textAlign: "center", marginTop: 40 }}>
           <button
             id="next-btn"
