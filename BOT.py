@@ -3,7 +3,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, Messa
 from telegram.constants import ParseMode
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    website_url = "http://localhost:3000"  # Replace with your actual landing page 1 URL
+    website_url = "https://clips-six-pink.vercel.app/"  # Replace with your actual landing page 1 URL
     await update.message.reply_text(
         f"Welcome! to get the videos visit the page here: {website_url}\nUse /help to see what I can do."
     )
