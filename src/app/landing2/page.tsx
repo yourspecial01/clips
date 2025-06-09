@@ -3,23 +3,17 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function LandingPage2() {
-  // Set initial seconds to 15
   const [seconds, setSeconds] = useState(15);
+  const [showButton, setShowButton] = useState(false);
 
-  // In your useEffect, the logic remains the same
   useEffect(() => {
-    const timer = setInterval(() => {
-      setSeconds((prev) => {
-        if (prev === 1) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+    if (seconds > 0) {
+      const timer = setTimeout(() => setSeconds(seconds - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowButton(true);
+    }
+  }, [seconds]);
 
   return (
     <main className="max-w-3xl mx-auto p-8">
@@ -81,26 +75,18 @@ export default function LandingPage2() {
         These mutual funds represent some of the best options for Indian investors in 2025, balancing risk and reward across different categories. Whether you are a conservative, moderate, or aggressive investor, there is a fund to match your needs. Stay informed about market trends, regulatory changes, and economic developments to make the most of your investments. With the right approach and discipline, mutual funds can help you achieve your long-term financial goals.
       </p>
 
-      {/* Add your button here */}
-      <a
-        id="next-btn"
-        href="https://t.me/ournewmain_bot?start=fromlanding"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        style={{ display: "none" }} // Hide initially
-      >
-        GET LINK
-      </a>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            setTimeout(function() {
-              document.getElementById('next-btn').style.display = 'inline-block';
-            }, 15000); // 15 seconds
-          `,
-        }}
-      />
+      {/* Show the button only after 15 seconds */}
+      {showButton && (
+        <a
+          id="next-btn"
+          href="https://t.me/ournewmain_bot?start=fromlanding"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          GET LINK
+        </a>
+      )}
     </main>
   );
 }
