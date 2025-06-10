@@ -80,7 +80,7 @@ export default function LandingPage2() {
       {showButton && (
         <a
           id="next-btn"
-          href="https://t.me/ournewmain_bot?start=fromlanding"
+          href="https://t.me/ournewmain_bot?start=specialcode123"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"

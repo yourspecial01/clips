@@ -6,13 +6,12 @@ import requests
 from io import BytesIO
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    s3_url = "https://myvideoclipsbucket.s3.us-east-1.amazonaws.com/hotstuff/Xvideos_desi_chudai_in_office_while_working_360p.mp4"
-    await update.message.reply_text("Downloading video, please wait...")
-    response = requests.get(s3_url)
-    video_bytes = BytesIO(response.content)
-    video_bytes.name = "video.mp4"
-    print(f"Downloaded video size: {len(video_bytes.getvalue())} bytes")
-    await update.message.reply_document(document=video_bytes, filename="video.mp4", caption="Here is your video!")
+    print("context.args:", context.args)  # Debug print
+    if context.args and context.args[0] == "specialcode123":
+        s3_url = "https://myvideoclipsbucket.s3.us-east-1.amazonaws.com/hotstuff/Xvideos_desi_chudai_in_office_while_working_360p.mp4"
+        await update.message.reply_text(f"Here is your video: {s3_url}")
+    else:
+        await update.message.reply_text("Access Denied")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("I can echo your messages. Just send me any text!")
