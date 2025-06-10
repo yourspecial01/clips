@@ -1,8 +1,6 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 from telegram.constants import ParseMode
-import requests
-from io import BytesIO
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     website_url = "https://clips-six-pink.vercel.app/"  # Replace with your actual landing page 1 URL
@@ -16,22 +14,13 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_message = update.message.text
     await update.message.reply_text(f"You said: {user_message}")
-
-async def video_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    s3_url = "https://myvideoclipsbucket.s3.us-east-1.amazonaws.com/hotstuff/Xvideos_desi_chudai_in_office_while_working_360p.mp4"
-    await update.message.reply_text("Downloading video, please wait...")
-    response = requests.get(s3_url)
-    video_bytes = BytesIO(response.content)
-    video_bytes.name = "video.mp4"  # Telegram requires a filename
-    await update.message.reply_video(video=video_bytes, caption="Here is your video!")
-
+    
 def main():
     
     TOKEN = "7610689819:AAEsL_mv6cO0L6DMxtOE02HGt4PptPnrEuk"
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("video", video_command))  # Add this line
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     application.run_polling()
 
