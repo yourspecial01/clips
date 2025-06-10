@@ -23,7 +23,8 @@ async def video_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = requests.get(s3_url)
     video_bytes = BytesIO(response.content)
     video_bytes.name = "video.mp4"
-    await update.message.reply_video(video=video_bytes, caption="Here is your video!")
+    print(f"Downloaded video size: {len(video_bytes.getvalue())} bytes")
+    await update.message.reply_document(document=video_bytes, filename="video.mp4", caption="Here is your video!")
 
 def main():
     TOKEN = "7610689819:AAEsL_mv6cO0L6DMxtOE02HGt4PptPnrEuk"
