@@ -1,15 +1,14 @@
 import os
 from dotenv import load_dotenv
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram.ext import (
+    ApplicationBuilder, CommandHandler, ContextTypes,
+    MessageHandler, filters
+)
 from telegram.constants import ParseMode
-from telegram.request import HTTPXRequest
-import requests
-from io import BytesIO
 
-load_dotenv()  # Load variables from .env
+load_dotenv()
 
-# Replace <your_file_id_here> with the actual file_id you copied
 FILE_ID = "BAACAgUAAxkDAAOKaEx-YsMFKll6yqgAATcXsENAFNPaAALXFgACZJthVg5t8Gm5oVFhNgQ"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -29,24 +28,30 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def upload_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     file_path = r"C:\Movies\onepiece1.mp4"
-    with open(file_path, "rb") as f:
-        msg = await update.message.reply_document(document=f, filename="onepiece1.mp4")
-        # Try to print both document and video file_id
-        if msg.document:
-            print("file_id (document):", msg.document.file_id)
-        elif msg.video:
-            print("file_id (video):", msg.video.file_id)
-        else:
-            print("No file_id found in message:", msg)
+    try:
+        with open(file_path, "rb") as f:
+            msg = await update.message.reply_document(document=f, filename="onepiece1.mp4")
+            if msg.document:
+                print("file_id (document):", msg.document.file_id)
+            elif msg.video:
+                print("file_id (video):", msg.video.file_id)
+            else:
+                print("No file_id found in message:", msg)
+    except Exception as e:
+        await update.message.reply_text(f"Failed to upload file: {e}")
 
 def main():
     TOKEN = os.getenv("TOKEN")
-    request = HTTPXRequest(connect_timeout=60, read_timeout=120, write_timeout=120, pool_timeout=60)
-    application = ApplicationBuilder().token(TOKEN).request(request).build()
+    if not TOKEN:
+        raise ValueError("Bot TOKEN not found in environment variables.")
+
+    application = ApplicationBuilder().token(TOKEN).build()
+
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     application.add_handler(CommandHandler("upload", upload_command))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+
     application.run_polling()
 
 if __name__ == "__main__":
