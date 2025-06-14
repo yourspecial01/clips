@@ -56,14 +56,26 @@ async def post_init(application: Application) -> None:
     ])
 
 def main():
-    application = Application.builder().token(TOKEN).post_init(post_init).build()
-
+    # Build the application with post_init
+    application = Application.builder()\
+        .token(TOKEN)\
+        .post_init(post_init)\
+        .build()
+    
+    # Add handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("upload", upload_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
 
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    # Start polling with conflict prevention settings
+    application.run_polling(
+        allowed_updates=Update.ALL_TYPES,
+        close_loop_by_signal=False,
+        stop_signals=[],
+        poll_interval=0.1,
+        timeout=30
+    )
 
 if __name__ == "__main__":
     main()
