@@ -68,11 +68,9 @@ def main():
     application.add_handler(CommandHandler("upload", upload_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
 
-    # Start polling with conflict prevention settings
+    # Start polling with valid parameters
     application.run_polling(
         allowed_updates=Update.ALL_TYPES,
-        close_loop_by_signal=False,
-        stop_signals=[],
         poll_interval=0.1,
         timeout=30
     )
