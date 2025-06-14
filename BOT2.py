@@ -12,6 +12,8 @@ from telegram.ext import (
 # Load environment variables
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # Your Render URL + /webhook
+ADMIN_CHAT_ID = os.getenv("ADMIN_CHAT_ID")  # Your personal chat ID for notifications
 
 # File ID of pre-uploaded document
 FILE_ID = "BAACAgUAAxkDAAOKaEx-YsMFKll6yqgAATcXsENAFNPaAALXFgACZJthVg5t8Gm5oVFhNgQ"
@@ -49,14 +51,22 @@ async def upload_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"❌ Failed to upload file: {e}")
 
 async def post_init(application: Application) -> None:
+    # Set bot commands
     await application.bot.set_my_commands([
         ("start", "Start the bot with access code"),
         ("help", "Show help information"),
         ("upload", "Upload a file (dev only)"),
     ])
+    
+    # Send startup notification
+    if ADMIN_CHAT_ID:
+        await application.bot.send_message(
+            chat_id=ADMIN_CHAT_ID,
+            text="Bot started successfully in webhook mode!"
+        )
 
 def main():
-    # Build the application with post_init
+    # Build the application
     application = Application.builder()\
         .token(TOKEN)\
         .post_init(post_init)\
@@ -68,11 +78,15 @@ def main():
     application.add_handler(CommandHandler("upload", upload_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
 
-    # Start polling with valid parameters
-    application.run_polling(
-        allowed_updates=Update.ALL_TYPES,
-        poll_interval=0.1,
-        timeout=30
+    # Webhook configuration
+    PORT = int(os.environ.get("PORT", 5000))
+    application.run_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        webhook_url=WEBHOOK_URL,
+        secret_token="YourSecretTokenHere",  # Add a random secret string
+        drop_pending_updates=True,
+        allowed_updates=Update.ALL_TYPES
     )
 
 if __name__ == "__main__":
